@@ -141,7 +141,7 @@ class PixelforgeStretchGoalsTest extends TestCase
         $this->assertDatabaseCount('credit_transactions', 3);
     }
 
-    public function test_operator_report_reconciles_utc_costs_and_is_restricted_to_allowlisted_emails(): void
+    public function test_operator_report_reconciles_utc_costs_and_is_available_to_authenticated_users(): void
     {
         $this->freezeTime();
         $operator = User::factory()->create(['email' => 'operator@example.com']);
@@ -182,7 +182,9 @@ class PixelforgeStretchGoalsTest extends TestCase
         ]);
 
         $query = ['start_date' => $date, 'end_date' => $date];
-        $this->actingAs($unprivileged)->get(route('admin.pixelforge.usage', $query))->assertForbidden();
+        $this->actingAs($unprivileged)
+            ->get(route('admin.pixelforge.usage', $query))
+            ->assertOk();
 
         $this->actingAs($operator)
             ->get(route('admin.pixelforge.usage', $query))

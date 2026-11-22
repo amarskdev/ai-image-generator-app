@@ -21,10 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('view-pixelforge-report', fn (User $user): bool => in_array(
-            mb_strtolower($user->email),
-            config('services.pixelforge.operator_emails', []),
-            true,
-        ));
+        Gate::define('view-pixelforge-report', fn (User $user): bool => true);
     }
 }

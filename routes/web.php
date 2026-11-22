@@ -26,5 +26,6 @@ Route::middleware([
     Route::post('/generations', [GenerationController::class, 'store'])->middleware('throttle:10,1')->name('generations.store');
     Route::post('/generations/{generation}/retry', [GenerationController::class, 'retry'])->middleware('throttle:10,1')->name('generations.retry');
     Route::post('/credits/purchase', CreditPurchaseController::class)->middleware('throttle:10,1')->name('credits.purchase');
-    Route::get('/admin/pixelforge/usage', PixelforgeUsageReportController::class)->name('admin.pixelforge.usage');
+    Route::get('/admin/pixelforge/usage', PixelforgeUsageReportController::class)
+        ->name('admin.pixelforge.usage');
 });
